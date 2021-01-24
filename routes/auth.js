@@ -1,11 +1,14 @@
 const router = require('express').Router();
 const upload = require('../utils/multer');
-const { localRegister } = require('../controllers/auth');
+const auth = require('../middleware/auth');
+const { localRegister, localLogin, accountVerify } = require('../controllers/auth');
 
 /**
- *@route /api/auth/register
+ *@parent_route /api/auth
  */
 
 router.post('/register', upload.single('picture'), localRegister);
+router.get('/login', localLogin);
+router.post('/verify', auth, accountVerify);
 
 module.exports = router;
