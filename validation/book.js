@@ -4,7 +4,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 const createBookValidation = (req) => {
   const Schema = Joi.object({
     name: Joi.string().required(),
-    tags: Joi.string(),
+    tags: Joi.array(),
     description: Joi.string(),
     image: Joi.string().base64(),
     isPublished: Joi.boolean(),
@@ -13,4 +13,11 @@ const createBookValidation = (req) => {
   return Schema.validate(req);
 };
 
-module.exports = { createBookValidation };
+const signleBookValidation = (req) => {
+  const Schema = Joi.object({
+    id: Joi.objectId().required(),
+  });
+  return Schema.validate(req);
+};
+
+module.exports = { createBookValidation, signleBookValidation };
