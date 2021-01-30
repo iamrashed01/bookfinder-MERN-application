@@ -13,6 +13,7 @@ const createBook = async (req, res) => {
   }
   const book = await new Book(_.pick(req.body, ['name', 'tags', 'description', 'isPublished', 'price']));
   book.author = req.user.id;
+  book.image = req.file.path;
   await book.save();
   return res.status(200).json({ data: book, message: 'book created successfully', success: true });
 };
@@ -37,7 +38,7 @@ const getAllBook = async (req, res) => {
   }
 
   const books = await Book.find(filter)
-    .select('-_id -__v');
+    .select('-__v');
   res.status(200).json({
     data: books,
     message: 'successfully data retrieved',
@@ -56,4 +57,22 @@ const getSingleBook = async (req, res) => {
   return res.status(200).json({ data: book, message: 'Book retrieved successfully', success: true });
 };
 
-module.exports = { createBook, getAllBook, getSingleBook };
+const removeSingleBook = async (req, res) => {
+  const { error } = signleBookValidation(req.params);
+  if (error) return res.status(400).json({ message: error.details[0].message, success: false });
+
+  const book = await Book.findByIdAndRemove(req.params.id);
+  if (!book) {
+    return res.status(400).json({ message: 'invalid id params', success: false });
+  }
+  try {
+    fs.unlinkSync(book.image);
+  } catch (ex) {
+    console.log(ex.message);
+  }
+  return res.status(200).json({ message: 'Book removed successfully', success: true });
+};
+
+module.exports = {
+  createBook, getAllBook, getSingleBook, removeSingleBook,
+};
