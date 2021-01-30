@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "14.15.3"
   },
   "keywords": [],
   "author": "",
