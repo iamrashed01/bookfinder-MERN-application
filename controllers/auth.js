@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
@@ -101,4 +102,17 @@ const accountVerify = async (req, res) => {
   return res.status(200).json({ token, message: 'User verified Successfully', success: true });
 };
 
-module.exports = { localRegister, accountVerify, localLogin };
+const googleAuth = async (req, res) => {
+  const payload = {
+    id: req.user._id, // eslint-disable-line
+  };
+
+  const token = await jwt.sign(payload, process.env.JWT_PRIVATE_KEY);
+  res.clearCookie('auth_token');
+  res.cookie('auth_token', token);
+  res.redirect(process.env.clientURL);
+};
+
+module.exports = {
+  localRegister, accountVerify, localLogin, googleAuth,
+};

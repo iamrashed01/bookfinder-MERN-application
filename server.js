@@ -1,3 +1,4 @@
+const passport = require('passport');
 const express = require('express');
 require('express-async-errors');
 require('dotenv').config();
@@ -15,6 +16,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static('uploads/'));
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./services/googleStrategy');
 
 // routes
 app.use('/api/auth', require('./routes/auth'));
