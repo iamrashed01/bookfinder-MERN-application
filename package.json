@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"npm run clientstart\" \"node server.js\"",
     "server": "nodemon server.js",
     "client": "cd client && npm run dev",
+    "clientstart": "cd client && npm run start",
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "engines": {

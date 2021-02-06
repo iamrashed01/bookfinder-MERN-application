@@ -28,11 +28,12 @@ app.use('/api/profile', require('./routes/user'));
 
 // error handler route
 app.use((err, req, res, next) => {
-  if (err.message === 'access denied') {
-    res.status(403);
-    res.json({ error: err.message });
+  if (res.headersSent) {
+    next('There was a problem!');
+  } else if (err.message) {
+    res.status(500).json({ error: err.message });
   } else {
-    res.json({ error: err.message });
+    res.status(500).json({ error: 'There was an error!' });
   }
 });
 
