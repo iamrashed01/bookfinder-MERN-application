@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 // 'mongodb://localhost/bookfinder'
 
 module.exports = () => {
-  mongoose.connect(`mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@cluster0.bg2dp.mongodb.net/bookfinder?retryWrites=true&w=majority`,
+  mongoose.connect('mongodb://localhost/bookfinder',
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,
