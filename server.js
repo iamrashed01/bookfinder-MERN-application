@@ -1,3 +1,4 @@
+const path = require('path');
 const passport = require('passport');
 const express = require('express');
 require('express-async-errors');
@@ -21,6 +22,18 @@ app.use(passport.session());
 
 require('./services/googleStrategy');
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to our Application',
+  });
+});
 // routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/books', require('./routes/book'));

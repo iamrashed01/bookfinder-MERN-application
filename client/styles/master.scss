@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Slabo+27px&family=Source+Code+Pro:wght@200;300;400;500;600;700;900&display=swap");
+
+*,
+html,
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: #444;
+  font-family: "Source Code Pro", monospace !important;
+}
+a,
+a:hover {
+  color: #444;
+  text-decoration: none;
+}
+
+body {
+  color: #444;
+  font-size: 13px;
+}
+.card {
+  background: #f9f9f9;
+}
+header {
+  background: #f9f9f9;
+  .logo {
+    a {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid #444;
+      padding: 3px 5px;
+    }
+  }
+}
+
+.authWrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.form-group {
+  label {
+    text-transform: capitalize;
+    line-height: 17px;
+  }
+  margin-bottom: 5px;
+  input {
+    font-size: 13px;
+  }
+}
+
+.react-datepicker-wrapper {
+  display: block;
+  width: 100%;
+  > div {
+    display: block;
+    width: 100%;
+  }
+}
