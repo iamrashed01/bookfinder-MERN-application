@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -H 0.0.0.0 $PORT"
+    "start": "next start -H 0.0.0.0 -p $PORT"
   },
   "dependencies": {
     "axios": "^0.21.1",
